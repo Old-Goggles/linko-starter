@@ -26,7 +26,7 @@ func main() {
 
 func run(ctx context.Context, cancel context.CancelFunc, httpPort int, dataDir string) int {
 	stdLogger := log.New(os.Stderr, "DEBUG: ", log.LstdFlags)
-	accessLog, err := os.Create("linko.access.log")
+	accessLog, err := os.OpenFile("linko.access.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0o644)
 	if err != nil {
 		stdLogger.Printf("failed to create access log: %v", err)
 		return 1
