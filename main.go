@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 
+	"boot.dev/linko/internal/build"
 	"boot.dev/linko/internal/linkoerr"
 	"boot.dev/linko/internal/store"
 	pkgerr "github.com/pkg/errors"
@@ -54,6 +55,11 @@ func run(ctx context.Context, cancel context.CancelFunc, httpPort int, dataDir s
 			fmt.Fprintf(os.Stderr, "cleanup error: %v\n", err)
 		}
 	}()
+
+	logger = logger.With(
+		slog.String("git_sha", build.GitSHA),
+		slog.String("build_time", build.BuildTime),
+	)
 
 	st, err := store.New(dataDir, logger)
 	if err != nil {
