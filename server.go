@@ -32,6 +32,12 @@ type spyResponseWriter struct {
 	statusCode   int
 }
 
+const logContextKey contextKey = "log_context"
+
+type LogContext struct {
+	Username string
+}
+
 func newServer(store store.Store, port int, cancel context.CancelFunc, logger *slog.Logger) *server {
 	mux := http.NewServeMux()
 
@@ -94,15 +100,23 @@ func requestLogger(logger *slog.Logger) func(http.Handler) http.Handler {
 			r.Body = spyReader
 			spyWriter := &spyResponseWriter{ResponseWriter: w}
 			startTime := time.Now()
+			logCtx := &LogContext{}
+			ctx := context.WithValue(r.Context(), logContextKey, logCtx)
+			r = r.WithContext(ctx)
 			next.ServeHTTP(spyWriter, r)
-			logger.Info("Served request",
+			attrs := []any{
 				slog.String("method", r.Method),
 				slog.String("path", r.URL.Path),
 				slog.String("client_ip", r.RemoteAddr),
 				slog.Duration("duration", time.Since(startTime)),
 				slog.Int("request_body_bytes", spyReader.bytesRead),
 				slog.Int("response_status", spyWriter.statusCode),
-				slog.Int("response_body_bytes", spyWriter.bytesWritten))
+				slog.Int("response_body_bytes", spyWriter.bytesWritten),
+			}
+			if logCtx.Username != "" {
+				attrs = append(attrs, slog.String("user", logCtx.Username))
+			}
+			logger.Info("Served request", attrs...)
 		})
 	}
 }
