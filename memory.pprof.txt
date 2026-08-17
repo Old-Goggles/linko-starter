@@ -1,0 +1,30 @@
+File: linko
+Type: inuse_space
+Time: 2026-08-16 13:35:10 CDT
+Duration: 30s, Total samples = 3395.24kB 
+Showing nodes accounting for 3395.24kB, 100% of 3395.24kB total
+      flat  flat%   sum%        cum   cum%
+ 1805.17kB 53.17% 53.17%  2349.84kB 69.21%  compress/flate.NewWriter (inline)
+ 1045.40kB 30.79% 83.96%  1045.40kB 30.79%  internal/bytealg.MakeNoZero
+  544.67kB 16.04%   100%   544.67kB 16.04%  compress/flate.(*compressor).initDeflate (inline)
+         0     0%   100%  2349.84kB 69.21%  bufio.(*Writer).Flush
+         0     0%   100%   544.67kB 16.04%  compress/flate.(*compressor).init
+         0     0%   100%  2349.84kB 69.21%  compress/gzip.(*Writer).Write
+         0     0%   100%  2349.84kB 69.21%  github.com/prometheus/client_golang/prometheus/promhttp.HandlerForTransactional.func1
+         0     0%   100%  2349.84kB 69.21%  github.com/prometheus/client_golang/prometheus/promhttp.InstrumentHandlerCounter.func1
+         0     0%   100%  2349.84kB 69.21%  github.com/prometheus/client_golang/prometheus/promhttp.InstrumentMetricHandler.InstrumentHandlerInFlight.func1
+         0     0%   100%  2349.84kB 69.21%  github.com/prometheus/common/expfmt.MetricFamilyToText
+         0     0%   100%  2349.84kB 69.21%  github.com/prometheus/common/expfmt.MetricFamilyToText.func1
+         0     0%   100%  2349.84kB 69.21%  github.com/prometheus/common/expfmt.NewEncoder.func7
+         0     0%   100%  2349.84kB 69.21%  github.com/prometheus/common/expfmt.encoderCloser.Encode
+         0     0%   100%  1045.40kB 30.79%  main.(*server).handlerRedirect
+         0     0%   100%  3395.24kB   100%  main.newServer.metricsMiddleware.func2
+         0     0%   100%  3395.24kB   100%  main.newServer.newServer.requestLogger.func1.func3
+         0     0%   100%  3395.24kB   100%  main.newServer.requestID.func4
+         0     0%   100%  3395.24kB   100%  net/http.(*ServeMux).ServeHTTP
+         0     0%   100%  3395.24kB   100%  net/http.(*conn).serve
+         0     0%   100%  3395.24kB   100%  net/http.HandlerFunc.ServeHTTP
+         0     0%   100%  3395.24kB   100%  net/http.serverHandler.ServeHTTP
+         0     0%   100%  1045.40kB 30.79%  strings.(*Builder).Grow
+         0     0%   100%  1045.40kB 30.79%  strings.(*Builder).grow
+         0     0%   100%  1045.40kB 30.79%  strings.Repeat
